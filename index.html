@@ -159,17 +159,21 @@
             }
 
             // Add the new pearl to Firestore
+            // Add the new pearl to Firestore
             db.collection('pearls').add({
-                type,
-                title,
-                startDate,
-                endDate,
-                commentary,
+                type: type,
+                title: title,
+                startDate: startDate,
+                endDate: endDate,
+                commentary: commentary,
                 timestamp: firebase.firestore.FieldValue.serverTimestamp()
-            }).then(() => {
+            }).then((docRef) => { // Capture the document reference here
                 displayPearl(type, title, startDate, endDate, commentary);
+                console.log("Document written with ID: ", docRef.id); // Now docRef.id is accessible
+                alert('Pearl added successfully!');
             }).catch(error => {
                 console.error('Error adding document: ', error);
+                alert('Error adding pearl. Please try again.');
             });
 
             // Clear input fields after adding the pearl
